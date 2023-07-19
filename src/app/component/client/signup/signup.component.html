@@ -1,0 +1,36 @@
+<form action="#" (ngSubmit)="onHanleSubmit()"  [formGroup] ="userForm">
+    <div class="form-group">
+        <label for="singin-email"> Email</label>
+        <input type="text" formControlName="email" class="form-control" id="singin-email" name="singin-email" required>
+        <div style="color: red;" *ngIf="userForm.get('email')?.errors?.['required']" class="error-message">Email is required.</div>
+        <div style="color: red;" *ngIf="userForm.get('email')?.errors?.['email']" class="error-message">Invalid email format.</div>
+    </div><!-- End .form-group -->
+    <div class="form-group">
+        <label for="singin-email"> Name</label>
+        <input type="text" formControlName="name" class="form-control" id="singin-email" name="singin-email" required>
+        <div style="color: red;" *ngIf="userForm.get('name')?.errors?.['required']">Name is required..</div>
+        <div  style="color: red;" *ngIf="userForm.get('name')?.errors?.['minlength']">Phải có ít nhất 5 ký tự.</div>
+    </div><!-- End .form-group -->
+
+    <div class="form-group">
+        <label for="singin-password">Password *</label>
+        <input type="password"  formControlName="password" class="form-control" id="singin-password" name="singin-password" required>
+         <div style="color: red;" *ngIf="userForm.get('password')?.errors?.['required']" class="error-message">Password is required.</div>
+        <div style="color: red;" *ngIf="userForm.get('password')?.errors?.['pattern']" class="error-message">Password must be at least 8 characters long and contain at least one uppercase letter.</div>
+    </div><!-- End .form-group -->
+    <div class="form-group">
+        <label for="singin-password">Repeat password *</label>
+        <input type="password"  formControlName="confirmPassword" class="form-control" id="singin-password" name="singin-password" required>
+        <div style="color: red;" *ngIf="userForm.get('confirmPassword')?.errors?.['required']" class="error-message">Password is required.</div>
+        <div style="color: red;" *ngIf="userForm.get('confirmPassword')?.errors?.['pattern']" class="error-message">Password must be at least 8 characters long and contain at least one uppercase letter.</div>
+    </div><!-- End .form-group -->
+    
+
+    <div class="form-footer">
+        <button type="submit" class="btn btn-outline-primary-2" [disabled]="userForm.invalid">
+            <span>REGISTER</span>
+            <i class="icon-long-arrow-right"></i>
+        </button>
+
+    </div><!-- End .form-footer -->
+</form>

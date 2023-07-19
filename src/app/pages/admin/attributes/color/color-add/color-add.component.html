@@ -1,0 +1,35 @@
+<div class="col-12">
+    <form (ngSubmit)="onHandleSubmit()" [formGroup]="ColorForm">
+      <div class="card">
+        <h5>Thêm Color</h5>
+        <div class="p-fluid p-formgrid grid">
+          <div class="field col-12 md:col-12">
+            <label htmlFor="name">Tên màu</label>
+            <input pInputText id="name" type="text" formControlName="name" />
+            <div class="error-message" *ngIf="ColorForm.get('name')?.invalid && ColorForm.get('name')?.touched">
+                <div style="color: red;" *ngIf="ColorForm.get('name')?.errors?.['required']">Tên Màu là bắt buộc.</div>
+                <div  style="color: red;" *ngIf="ColorForm.get('name')?.errors?.['minlength']">Tên Màu phải có ít nhất 5 ký tự.</div>
+                <div  style="color: red;" *ngIf="ColorForm.get('name')?.errors?.['maxlength']">Tên Màu không được vượt quá 15 ký tự.</div>
+                <div  style="color: red;" *ngIf="ColorForm.get('name')?.errors?.['forbiddenName']">Tên Màu không hợp lệ.</div>
+              </div>
+          </div>
+          <div class="field col-12 md:col-12">
+            <label htmlFor="name">Mã màu</label>
+            <input pInputText id="name" type="text" formControlName="hex" />
+            <div class="error-message" *ngIf="ColorForm.get('name')?.invalid && ColorForm.get('name')?.touched">
+                <div style="color: red;" *ngIf="ColorForm.get('name')?.errors?.['required']">Mã màu là bắt buộc.</div>
+                <div  style="color: red;" *ngIf="ColorForm.get('name')?.errors?.['minlength']">Mã màu phải có ít nhất 5 ký tự.</div>
+                <div  style="color: red;" *ngIf="ColorForm.get('name')?.errors?.['maxlength']">Mã màu không được vượt quá 15 ký tự.</div>
+                <div  style="color: red;" *ngIf="ColorForm.get('name')?.errors?.['forbiddenName']">Mã màu không hợp lệ.</div>
+              </div>
+          </div>
+  
+
+          <div class="field col-12 md:col-1">
+            <button [disabled]="ColorForm.invalid" type="submit" pButton>Thêm</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

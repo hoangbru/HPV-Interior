@@ -1,0 +1,161 @@
+<div class="col-12">
+  <form (ngSubmit)="onHandleSubmit()" [formGroup]="productForm">
+    <div class="card">
+      <h5>Thêm sản phẩm</h5>
+      <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-3">
+          <label htmlFor="name">Tên sản phẩm</label>
+          <input pInputText id="name" type="text" formControlName="name" />
+          <div style="color: red;" *ngIf="productForm.get('name')?.errors?.['required']" class="error-message">Tên sản phẩm là bắt buộc.</div>
+        </div>
+
+        <div class="field col-12 md:col-3">
+          <label htmlFor="quantity">Số lượng</label>
+          <input
+            pInputText
+            id="quantity"
+            type="text"
+            formControlName="quantity"
+          />
+
+          <div style="color: red;" *ngIf="productForm.get('quantity')?.errors?.['required']" class="error-message">Số lượng là bắt buộc.</div>
+          <div style="color: red;" *ngIf="productForm.get('quantity')?.errors?.['pattern']" class="error-message">Số lượng phải là số.</div>
+        </div>
+        <div class="field col-12 md:col-3">
+          <label htmlFor="import-price">Giá nhập hàng</label>
+          <input
+            pInputText
+            id="import-price"
+            type="text"
+            formControlName="importPrice"
+          />
+
+          <div style="color: red;" *ngIf="productForm.get('importPrice')?.errors?.['required']" class="error-message">Giá nhập hàng là bắt buộc.</div>
+          <div style="color: red;" *ngIf="productForm.get('importPrice')?.errors?.['pattern']" class="error-message">Giá nhập hàng phải là số.</div>
+        </div>
+
+        <div class="field col-12 md:col-3">
+          <label htmlFor="price">Giá bán sản phẩm</label>
+          <input pInputText id="price" type="text" formControlName="price" />
+
+          <div style="color: red;" *ngIf="productForm.get('price')?.errors?.['required']" class="error-message">Giá bán là bắt buộc.</div>
+          <div style="color: red;" *ngIf="productForm.get('price')?.errors?.['pattern']" class="error-message">Giá bán phải là số.</div>
+        </div>
+
+        <div class="field col-12">
+          <label htmlFor="desc">Mô tả</label>
+          <input
+            pInputTextarea
+            id="desc"
+            type="text"
+            rows="4"
+            style="height: 100px"
+            formControlName="description"
+          />
+          <div style="color: red;" *ngIf="productForm.get('description')?.errors?.['required']" class="error-message">Mô tả là bắt buộc.</div>
+        </div>
+
+        <div class="field col-12">
+          <label htmlFor="thumbnail">Ảnh</label>
+          <input
+            pInputTextarea
+            id="thumbnail"
+            type="text"
+            value="{{ imageUploaded }}"
+            rows="4"
+            formControlName="thumbnail"
+          />
+          <!-- <div style="color: red;" *ngIf="productForm.get('thumbnail')?.errors?.['required']" class="error-message">Ảnh là bắt buộc.</div> -->
+          <ngx-dropzone
+            (change)="onSelect($event)"
+            id="img"
+            class="form-control"
+          >
+            <ngx-dropzone-label>Drop image</ngx-dropzone-label>
+            <ngx-dropzone-image-preview
+              ngProjectAs="ngx-dropzone-preview"
+              *ngFor="let f of files"
+              [file]="f"
+              [removable]="true"
+              (removed)="onRemove(f)"
+            >
+            </ngx-dropzone-image-preview>
+          </ngx-dropzone>
+         
+        </div>
+
+
+        <div class="md:col-6">
+          <label htmlFor="code">Mã sản phẩm</label>
+          <input pInputText id="code" type="text" formControlName="code" />
+          <div style="color: red;" *ngIf="productForm.get('code')?.errors?.['required']" class="error-message">Mã sản phẩm là bắt buộc.</div>
+        </div>
+
+        <div class="md:col-6">
+          <label htmlFor="category">Danh mục</label>
+          <select
+            class="form-select"
+            pInputText
+            rows="4"
+            id="category"
+            formControlName="categoryId"
+            aria-label=".form-select-lg example"
+          >
+         
+            <option
+              rows="4"
+              *ngFor="let catePro of ProductCateID"
+              value="{{ catePro._id }}"
+            >
+              {{ catePro.name }}
+            </option>
+          </select>
+          <div style="color: red;" *ngIf="productForm.get('categoryId')?.errors?.['required']" class="error-message">Danh mục là bắt buộc.</div>
+        </div>
+
+        <div class="md:col-12">
+          <label htmlFor="code">Màu</label>
+          <div class="flex gap-2">
+            <div *ngFor="let color of colorList" class="field-checkbox">
+              <p-checkbox
+                name="group"
+                [value]="color._id"
+                [(ngModel)]="selectedColor"
+                [inputId]="color._id"
+                formControlName="colorId"
+              ></p-checkbox>
+            
+              <label class="formcolor" [style.color]="color.hex" [for]="color._id">{{ color.name }}</label>
+            </div>
+          </div>
+          <div style="color: red;" *ngIf="productForm.get('colorId')?.errors?.['required']" class="error-message">Màu là bắt buộc.</div>
+        </div>
+
+        <div class="md:col-12">
+          <label htmlFor="code">Kích cỡ</label>
+          <div class="gap-2">
+            <div *ngFor="let size of sizeList" class="field-checkbox">
+              <p-checkbox
+                name="group"
+                [value]="size._id"
+                [(ngModel)]="selectedSize"
+                [inputId]="size._id"
+                formControlName="sizeId"
+              ></p-checkbox>
+              
+              <label [for]="size._id">{{ size.name }}</label>
+            </div>
+          </div>
+          <div style="color: red;" *ngIf="productForm.get('sizeId')?.errors?.['required']" class="error-message">Kích cỡ là bắt buộc.</div>
+        </div> 
+
+        
+
+
+        <div class="field col-12 md:col-1">
+          <button pButton pRipple type="submit" pButton [disabled]="productForm.invalid">Thêm</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

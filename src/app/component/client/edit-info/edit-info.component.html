@@ -1,0 +1,94 @@
+<div>
+  <div
+    class="page-header text-center"
+    style="background-image: url('assets/images/page-header-bg.jpg')"
+  >
+    <div class="container">
+      <h1 class="page-title">Edit Infomation</h1>
+    </div>
+    <!-- End .container -->
+  </div>
+  <!-- End .page-header -->
+  <nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit info</li>
+      </ol>
+    </div>
+    <!-- End .container -->
+  </nav>
+  <!-- End .breadcrumb-nav -->
+  <div class="page-content mb-5">
+    <div class="card" *ngIf="infoUser">
+      <h5>Your Infomation</h5>
+      <form (ngSubmit)="onHandleSubmit()" [formGroup]="editInfoForm">
+        <div class="field col-12 md:col-3">
+          <label htmlFor="avatar">Avatar</label>
+          <img
+            src="{{ infoUser.img }}"
+            alt=""
+            width="50px"
+            height="auto"
+            id="avatar"
+          />
+        </div>
+        <div class="p-fluid p-formgrid grid">
+          <input pInputText style="display: none" type="text" />
+          <div class="field col-12 md:col-6">
+            <label htmlFor="username">Username</label>
+            <input
+              pInputText
+              id="username"
+              formControlName="username"
+              type="text"
+            />
+          </div>
+          <div class="field col-12 md:col-6">
+            <label htmlFor="email">Email</label>
+            <input pInputText id="email" formControlName="email" type="text" />
+          </div>
+          <div class="field col-12">
+            <label htmlFor="address">Address</label>
+            <input
+              pInputTextarea
+              id="address"
+              formControlName="address"
+              rows="4"
+            />
+          </div>
+          <div class="field col-12 md:col-6">
+            <label htmlFor="phone">Phone</label>
+            <input pInputText id="phone" formControlName="sdt" type="text" />
+         </div>
+          <!-- <div class="field col-12 md:col-6">
+            <label htmlFor="gender">Gender</label>
+            <p-dropdown
+               [options]="dropdownItems"
+              optionLabel="name"
+              formControlName="gender"
+              [(ngModel)]="selectedState"
+             
+            ></p-dropdown>
+          </div> -->
+
+          <div class="field col-12 md:col-6">
+            <label htmlFor="gender">Gender</label>
+            <select class="form-select  h-50" formControlName="gender" aria-label=".form-select-lg example">
+                <option  value="Male">Male</option>
+                <option  value="Female">Female</option>
+                <option  value="Unknown">Unknown</option>
+              </select>
+          </div>
+
+        </div>
+        <div class="cart-bottom">
+          <button class="btn btn-outline-dark-2" type="submit">
+            <span>SAVE</span><i class="icon-tick"></i>
+          </button>
+        </div>
+        <!-- End .cart-bottom -->
+      </form>
+    </div>
+  </div>
+</div>

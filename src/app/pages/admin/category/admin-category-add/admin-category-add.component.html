@@ -1,0 +1,22 @@
+
+<div class="col-12">
+    <form (ngSubmit)="onHandleSubmit()" [formGroup]="categoryForm">
+      <div class="card">
+        <h5>Thêm danh mục</h5>
+        <div class="p-fluid p-formgrid grid">
+          <div class="field col-12 md:col-12">
+            <label htmlFor="firstname2">Tên danh mục</label>
+            <input pInputText id="firstname2" type="text" formControlName="name" />
+            <div style="color: red;" *ngIf="categoryForm.get('name')?.errors?.['required']">Name is required..</div>
+          </div>
+
+          <div class="field col-12 md:col-1">
+           
+            <button type="submit" pButton pRipple type="submit" [disabled]="categoryForm.invalid">Thêm</button>
+          </div>
+          
+        </div>
+      </div>
+    </form>
+  </div>
+  

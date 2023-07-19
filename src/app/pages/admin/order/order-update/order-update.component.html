@@ -1,0 +1,23 @@
+<div class="col-12" *ngIf="order">
+    <form (ngSubmit)="onHandleSubmit()" [formGroup]="orderForm">
+      <div class="card">
+        <h5>Update trạng thái</h5>
+        <div class="p-fluid p-formgrid grid">
+          <div class="field col-12 md:col-12">
+            <label htmlFor="status">Trạng thái: <span>{{order.status.status}}</span></label>
+            <td style="width:20%; min-width:15rem;">
+                <select class="form-select" aria-label=".form-select-lg example" formControlName="status">
+                    <option *ngFor="let item of statusList" [value]="item._id">
+                      {{ item.status }}
+                    </option>
+                </select>
+            </td>
+          </div>
+          <div class="field col-12 md:col-1">
+            <button type="submit" pButton pRipple>Cập nhật</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

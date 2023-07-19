@@ -1,0 +1,222 @@
+<header class="header">
+  <div class="header-top">
+
+    <div class="container">
+      <div class="header-left">
+        <div class="header-dropdown">
+          <a routerLink="#">Usd</a>
+          <div class="header-menu">
+            <ul>
+              <li><a routerLink="#">Eur</a></li>
+              <li><a routerLink="#">Usd</a></li>
+            </ul>
+          </div>
+          <!-- End .header-menu -->
+        </div>
+        <!-- End .header-dropdown -->
+
+        <div class="header-dropdown">
+          <a routerLink="#">Eng</a>
+          <div class="header-menu">
+            <ul>
+              <li><a routerLink="#">English</a></li>
+              <li><a routerLink="#">French</a></li>
+              <li><a routerLink="#">Spanish</a></li>
+            </ul>
+          </div>
+          <!-- End .header-menu -->
+        </div>
+        <!-- End .header-dropdown -->
+      </div>
+      <!-- End .header-left -->
+
+      <div class="header-right">
+        <ul class="top-menu">
+          <li>
+            <a routerLink="#">Links</a>
+            <ul>
+              <li>
+                <a routerLink="tel:#"
+                  ><i class="icon-phone"></i>Call: 0793576765</a
+                >
+              </li>
+              <li>
+                <a routerLink="wishlist"
+                  ><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a
+                >
+              </li>
+              <li>
+                <ul>
+                    <li *ngIf="user">
+                        <div class="header-dropdown">
+                            <a routerLink="#" >
+                                <img src="{{ user.user.img }}" class="img-user" />
+                        </a>
+                        <div class="header-menu">
+                            <ul class="drop-down__user">
+                                <li><a> Signed in as <span><strong>{{user.user.username}}</strong></span></a></li>
+                                <li *ngIf="user.user.role == 'admin' "><a routerLink="/admin">Go to Dashboard</a></li>
+                                <li *ngIf="user.user.role !== 'admin' ">
+                                  <a routerLink="/info/edit">Edit Your Profile</a>
+                                  <a routerLink="/detailorder">Follow your order</a>
+                                  <a routerLink="/order/canceled">Canceled order</a>
+                                </li>
+                                <li><a routerLink="" (click)="logout()">Log out</a></li>
+                            </ul>
+                        </div>
+                        </div>
+                    </li>
+                    <li *ngIf="!user"><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!-- End .top-menu -->
+      </div>
+      <!-- End .header-right -->
+    </div>
+    <!-- End .container -->
+  </div>
+  <!-- End .header-top -->
+
+  <div class="header-middle sticky-header">
+    <div class="container">
+      <div class="header-left">
+        <button class="mobile-menu-toggler">
+          <span class="sr-only">Toggle mobile menu</span>
+          <i class="icon-bars"></i>
+        </button>
+
+        <a routerLink="index.html" class="logo">
+          <img
+            src="assets/images/logo.png"
+            alt="Molla Logo"
+            width="105"
+            height="25"
+          />
+        </a>
+
+        <nav class="main-nav">
+          <ul class="menu sf-arrows">
+            <li class="megamenu-container">
+              <a href="/" class="">Home</a>
+            </li>
+            <li>
+              <a routerLink="/shop">Shop</a>
+            </li>
+          
+            <li>
+              <a routerLink="/blog">Blog</a>
+            </li>
+
+            <li>
+              <a routerLink="/about">About </a>
+            </li>
+            <li>
+              <a routerLink="/contact">Contact</a>
+            </li>
+          </ul>
+          <!-- End .menu -->
+        </nav>
+        <!-- End .main-nav -->
+      </div>
+      <!-- End .header-left -->
+
+      <div class="header-right">
+        <div class="header-search">
+          <a routerLink="#" class="search-toggle" role="button" title="Search"
+            ><i class="icon-search"></i
+          ></a>
+          <form action="#" method="get">
+            <div class="header-search-wrapper">
+              <label for="q" class="sr-only">Search</label>
+              <input
+                type="search"
+                class="form-control"
+                name="q"
+                id="q"
+                placeholder="Search in..."
+                required
+              />
+            </div>
+            <!-- End .header-search-wrapper -->
+          </form>
+        </div>
+        <!-- End .header-search -->
+
+        <div class="dropdown cart-dropdown">
+          <a
+            routerLink="cart"
+            class="dropdown-toggle"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            data-display="static"
+          >
+            <i class="icon-shopping-cart"></i>
+            <span class="cart-count">{{ totalQuantity }}</span>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right">
+            <div
+              class="dropdown-cart-products"
+              *ngFor="let cart of carts; let i = index"
+            >
+              <div class="product">
+                <div class="product-cart-details">
+                  <h4 class="product-title">
+                    <a routerLink="product.html">{{ cart.name }}</a>
+                  </h4>
+
+                  <span class="cart-product-info">
+                    <span class="cart-product-qty">{{ cart.quantity }}</span>
+                    x ${{ cart.price }}
+                  </span>
+                </div>
+                <!-- End .product-cart-details -->
+
+                <figure class="product-image-container">
+                  <a routerLink="product.html" class="product-image">
+                    <img src="{{ cart.img }}" alt="product" />
+
+                  </a>
+                </figure>
+                <a
+                  (click)="removeCart(i)"
+                  class="btn-remove"
+                  title="Remove Product"
+                  ><i class="icon-close"></i
+                ></a>
+              </div>
+              <!-- End .product -->
+            </div>
+            <!-- End .cart-product -->
+
+            <div class="dropdown-cart-total">
+              <span>{{ totalQuantity }}</span>
+
+              <span class="cart-total-price">${{ totalPrice }}</span>
+            </div>
+            <!-- End .dropdown-cart-total -->
+
+            <div class="dropdown-cart-action">
+              <a routerLink="cart" class="btn btn-primary">View Cart</a>
+              <a routerLink="checkout" class="btn btn-outline-primary-2"
+                ><span>Checkout</span><i class="icon-long-arrow-right"></i
+              ></a>
+            </div>
+            <!-- End .dropdown-cart-total -->
+          </div>
+          <!-- End .dropdown-menu -->
+        </div>
+        <!-- End .cart-dropdown -->
+      </div>
+      <!-- End .header-right -->
+    </div>
+    <!-- End .container -->
+  </div>
+  <!-- End .header-middle -->
+</header>
+<!-- End .header -->
